@@ -4,18 +4,29 @@
         <meta http-equiv="content-type" content="text/html;charset=utf-8" />
         <title>测试1</title>
 <!--         <script src="js/index.js" type="text/javascript"></script> -->
-        <script src="https://static.runoob.com/assets/jquery/2.0.3/jquery.min.js" ></script>
         <link rel="stylesheet" href="css/index.css" />
         <script src="js/lib/requirejs.js"></script>
+		<script src="js/script/main.js"></script>
         <script>
-            require.config({
-                paths:{
-                    "jquery" : ["http://libs.baidu.com/jquery/2.0.3/jquery"]
-                }
-            })
+			require(['jquery','js/script/index.js'],function($,indexObj){
+				//JQuery 代码
+			})
+			require(['js/data/request_data.js'],function(){
+				req_get('https://api.github.com/repos/CHNingMing/showPage2/contents/makedown');
+				req_get('https://api.github.com/repos/CHNingMing/showPage2/contents/makedown/QT.md?ref=master',{},function(data){
+					console.info(data);
+				})
+				/* req_get('https://api.github.com/repos/CHNingMing/showPage2/contents/makedown',{},function(data){
+					for( let i = 0,len = data.length; i < len; i ++ ){
+						req_get(data[i].url,{},function(dataUrl){
+							console.log(dataUrl.content);
+						});
+					}
+				}) */
+			});
         </script>
     </head>
     <body>
-        <button value="点击加载a.js" onclick='require(["js/project_lib/a","jquery"],function(){alert("load complete.")});'>点击加载a.js</button>
+        
     </body>
 </html>
