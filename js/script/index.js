@@ -1,5 +1,4 @@
-define(['jquery'],function($){
-	console.log($('body'));
+define(function(){
 	var user = {};
 	user.name = 'ZhangSan';
 	user.age = 20;
