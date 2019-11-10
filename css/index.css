@@ -1,12 +1,42 @@
+body::-webkit-scrollbar{
+    display:none;
+}
+.mainDiv{
+    width:100%;
+    margin:0 auto;
+    padding:0 auto;
+    border: 1px solid;
+    background-color:#e2e2e2;
+}
+header{
+    height:30px;
+    background-color:#ddd;
+}
+.carouse{
+    height:200px;
+}
 
 
 /*正文Makedown*/
 .makedownContent{
-    width:80%;
-    float:right;
+    width:75%;
+    height:900px;
+    border:1px solid;
+    float:left;
 }
+/*代码区域*/
 .leftList li{
     list-style: none;
     display: block;
     width: 150px;
+}
+.leftList{
+    border:1px solid;
+    float:left;
+}
+
+.bottom{
+    height:30px;
+    clear:both;
+    background-color:#ddd;
 }

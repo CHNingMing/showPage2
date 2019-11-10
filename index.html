@@ -4,6 +4,10 @@
         <meta charset="UTF-8">
         <title>测试1</title>
 <!--         <script src="js/index.js" type="text/javascript"></script> -->
+        <!-- Makedown 主题CSS -->
+        <link rel="stylesheet" href="js/lib/starpdown/css/united.min.css" />
+        <!--LayUi CSS-->
+        <link rel="stylesheet" href="js/lib/layui/css/layui.css" />
         <link rel="stylesheet" href="css/index.css" />
         <!--  marked必须引入在requirejs上边，不然会报define异常 -->
         <script src="js/lib/vue.js"></script>
@@ -42,24 +46,35 @@
     <header>
         <span>头</span>
     </header>
-    <!-- 推荐 -->
-    <div>
+    <div class="mainDiv">
+        <!-- 推荐 -->
+<!--        <div>
+            <div class="layui-container layui-row">
+                <div class="layui-col-md9 carouse">
+                    左轮播
+                </div>
+                <div class="layui-col-md3 carouse">
+                    右推荐
+                </div>
+            </div>
+        </div>-->
+        <!-- 左目录 -->
+        <div>
+            <div id="leftList" class="leftList">
+                <ul>
+                    <li v-for="makedown in makedowns" v-bind:url="makedown.url" v-on:click="showMakedown(makedown.url)"  >
+                        <i class="layui-icon">&#xe60c;</i>  {{makedown.name}}
+                    </li>
+                </ul>
+            </div>
+            <!-- 正文 -->
+            <div id="makedownContent" class="makedownContent" v-html="makedownContent">
 
+            </div>
+        </div>
     </div>
-    <!-- 左目录 -->
-    <div id="leftList" class="leftList">
-        <ul >
-            <li v-for="makedown in makedowns" v-bind:url="makedown.url" v-on:click="showMakedown(makedown.url)"  >
-                {{makedown.name}}
-            </li>
-        </ul>
+    <div class="bottom">
+        底部
     </div>
-    <!-- 正文 -->
-    <div id="makedownContent" class="makedownContent" v-html="makedownContent">
-
-    </div>
-    <footer>
-
-    </footer>
     </body>
 </html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="js/lib/layui/css/layui.css" />
+</head>
+<body>
+    <header>
+        <span>头</span>
+    </header>
+    <div class="mainDiv">
+        <div class="layui-container layui-row">
+            <div class="layui-col-md9 carouse">
+                左轮播
+            </div>
+            <div class="layui-col-md3 carouse">
+                右推荐
+            </div>
+        </div>
+        <div id="leftList" class="leftList">
+            <ul>
+                <li>A</li>
+                <li>B</li>
+                <li>C</li>
+            </ul>
+        </div>
+        <div id="makedownContent" class="makedownContent" v-html="makedownContent">
+            <h1>ABC</h1>
+            <h2>ABC</h2>
+            <h3>ABC</h3>
+            <h4>ABC</h4>
+        </div>
+    </div>
+    <header>
+        底部
+    </header>
+</body>
+</html>
