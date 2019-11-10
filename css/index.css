@@ -1,1 +1,12 @@
 
+
+/*正文Makedown*/
+.makedownContent{
+    width:80%;
+    float:right;
+}
+.leftList li{
+    list-style: none;
+    display: block;
+    width: 150px;
+}
