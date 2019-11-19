@@ -1,0 +1,45 @@
+.main{
+    margin:0 auto;
+    border:1px solid;
+    width:1024px;
+    height:768px;
+}
+/*通用样式*/
+.ulNoStyle li{
+    list-style:none;
+    display:block;
+}
+/**/
+header{
+    width:100%;
+    height:200px;
+    border:1px solid;
+}
+footer{
+    width:100%;
+    height:80px;
+    border:1px solid;
+}
+.leftArea{
+    height:100%;
+    border:1px solid;
+}
+.centerArea{
+    border:1px solid;
+    width:83% !important;
+    height:100%;
+}
+.centerItem li{
+    margin:0 auto;
+    height:80px;
+    width:80%;
+    border:1px solid;
+    margin-left:10%;
+    margin-top:20px;
+    transition:0.5s;
+    box-shadow:0px 0px 8px #C0C0C0;
+    cursor:pointer;
+}
+.centerItem li:hover{
+    box-shadow:0px 0px 0px;
+}

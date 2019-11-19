@@ -1,80 +1,55 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>测试1</title>
-<!--         <script src="js/index.js" type="text/javascript"></script> -->
-        <!-- Makedown 主题CSS -->
-        <link rel="stylesheet" href="js/lib/starpdown/css/united.min.css" />
-        <!--LayUi CSS-->
-        <link rel="stylesheet" href="js/lib/layui/css/layui.css" />
-        <link rel="stylesheet" href="css/index.css" />
-        <!--  marked必须引入在requirejs上边，不然会报define异常 -->
-        <script src="js/lib/vue.js"></script>
-        <script src="js/lib/marked/marked.min.js"></script>
-        <script src="js/lib/requirejs.js"></script>
-		<script src="js/script/main.js"></script>
-        <script>
-            require(['js/data/request_fetch.js'],function () {
-                var makedownContent = new Vue({
-                    el:'#makedownContent',
-                    data:{
-                        makedownContent: ''
-                    }
-                });
-                req_get('https://api.github.com/repos/CHNingMing/showPage2/contents/makedown',function (makedownList) {
-                    var leftList = new Vue({
-                        el:'#leftList',
-                        data:{
-                            makedowns: makedownList,
-                            lis: '<li>A</li><li>A</li>'
-                        },
-                        methods: {
-                            showMakedown:function(url){
-                                req_get(url,function(content){
-                                    var makeStr = decodeURIComponent(escape(window.atob(content.content)));
-                                    makedownContent.$data.makedownContent = marked(makeStr);
-                                });
-                            }
-                        }
-                    });
-                });
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/indexA.css" />
+    <link rel="stylesheet" href="js/lib/layui/css/layui.css" />
+    <script src="js/lib/vue.js"></script>
+    <script src="js/lib/marked/marked.min.js"></script>
+    <script src="js/lib/requirejs.js"></script>
+    <script src="js/script/main.js"></script>
+    <script>
+        require(['js/data/request_fetch.js'],function () {
+            var nodeList = new Vue({
+                el:'#nodeList',
+                data: {
+                    nodeList: new Array()
+                }
             });
-        </script>
-    </head>
-    <body>
+            req_get('https://api.github.com/repos/CHNingMing/showPage2/contents/makedown',function (makedownList) {
+                nodeList.$data.nodeList = makedownList;
+            });
+        });
+    </script>
+</head>
+<body>
     <header>
-        <span>头</span>
-    </header>
-    <div class="mainDiv">
-        <!-- 推荐 -->
-<!--        <div>
-            <div class="layui-container layui-row">
-                <div class="layui-col-md9 carouse">
-                    左轮播
-                </div>
-                <div class="layui-col-md3 carouse">
-                    右推荐
-                </div>
-            </div>
-        </div>-->
-        <!-- 左目录 -->
-        <div>
-            <div id="leftList" class="leftList">
-                <ul>
-                    <li v-for="makedown in makedowns" v-bind:url="makedown.url" v-on:click="showMakedown(makedown.url)"  >
-                        <i class="layui-icon">&#xe60c;</i>  {{makedown.name}}
-                    </li>
-                </ul>
-            </div>
-            <!-- 正文 -->
-            <div id="makedownContent" class="makedownContent" v-html="makedownContent">
 
+    </header>
+    <div class="main">
+        <div class="layui-col-md2 leftArea">
+            <div class="layui-col-md12">
+                文章分类
+            </div>
+            <div class="layui-col-md12">
+                展示标签
+            </div>
+            <div class="layui-col-md12">
+                最新评论
+            </div>
+            <div class="layui-col-md12">
+                最近动态
             </div>
         </div>
+        <div class="layui-col-md4 centerArea">
+            <ul class="ulNoStyle centerItem" id="nodeList">
+                <li v-for="node in nodeList" v-bind:url="node.url" v-on:click="gotoNodePage(makedown.url)" class="layui-col-md9">{{node.name}}</li>
+            </ul>
+        </div>
     </div>
-    <div class="bottom">
-        底部
-    </div>
-    </body>
+    <footer>
+
+    </footer>
+</body>
 </html>

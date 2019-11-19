@@ -1,40 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="css/index.css" />
-    <link rel="stylesheet" href="js/lib/layui/css/layui.css" />
-</head>
-<body>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>测试1</title>
+<!--         <script src="js/index.js" type="text/javascript"></script> -->
+        <!-- Makedown 主题CSS -->
+        <link rel="stylesheet" href="js/lib/starpdown/css/united.min.css" />
+        <!--LayUi CSS-->
+        <link rel="stylesheet" href="js/lib/layui/css/layui.css" />
+        <link rel="stylesheet" href="css/index.css" />
+        <!--  marked必须引入在requirejs上边，不然会报define异常 -->
+        <script src="js/lib/vue.js"></script>
+        <script src="js/lib/marked/marked.min.js"></script>
+        <script src="js/lib/requirejs.js"></script>
+		<script src="js/script/main.js"></script>
+        <script>
+            require(['js/data/request_fetch.js'],function () {
+                var makedownContent = new Vue({
+                    el:'#makedownContent',
+                    data:{
+                        makedownContent: ''
+                    }
+                });
+                req_get('https://api.github.com/repos/CHNingMing/showPage2/contents/makedown',function (makedownList) {
+                    var leftList = new Vue({
+                        el:'#centerList',
+                        data:{
+                            makedowns: makedownList,
+                            lis: '<li>A</li><li>A</li>'
+                        },
+                        methods: {
+                            showMakedown:function(url){
+/*                                req_get(url,function(content){
+                                    var makeStr = decodeURIComponent(escape(window.atob(content.content)));
+                                    makedownContent.$data.makedownContent = marked(makeStr);
+                                });*/
+                                console.log('跳转文章详情页面');
+
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
     <header>
         <span>头</span>
     </header>
     <div class="mainDiv">
-        <div class="layui-container layui-row">
-            <div class="layui-col-md9 carouse">
-                左轮播
+        <!-- 推荐 -->
+<!--        <div>
+            <div class="layui-container layui-row">
+                <div class="layui-col-md9 carouse">
+                    左轮播
+                </div>
+                <div class="layui-col-md3 carouse">
+                    右推荐
+                </div>
             </div>
-            <div class="layui-col-md3 carouse">
-                右推荐
+        </div>-->
+        <!-- 左目录 -->
+        <div>
+            <div id="lefatArea" class="layui-col-md2 lefatArea">
+                <div class="headImage">
+                    <!--头像-->
+                </div>
+                <hr class="lineStyle" />
+                <div class="leftAreaTobar">
+                    <!--工具-->
+                </div>
             </div>
-        </div>
-        <div id="leftList" class="leftList">
-            <ul>
-                <li>A</li>
-                <li>B</li>
-                <li>C</li>
-            </ul>
-        </div>
-        <div id="makedownContent" class="makedownContent" v-html="makedownContent">
-            <h1>ABC</h1>
-            <h2>ABC</h2>
-            <h3>ABC</h3>
-            <h4>ABC</h4>
+            <div id="centerList" class="layui-col-md7 centerList">
+                <ul>
+                    <li v-for="makedown in makedowns" v-bind:url="makedown.url" v-on:click="showMakedown(makedown.url)"  >
+                        <i class="layui-icon">&#xe60c;</i>  {{makedown.name}}
+                    </li>
+                </ul>
+            </div>
+            <!-- 正文 -->
+            <div id="rightArea" class="layui-col-md2 rightArea" v-html="makedownContent">
+                abc
+            </div>
         </div>
     </div>
-    <header>
+    <div class="bottom">
         底部
-    </header>
-</body>
+    </div>
+    </body>
 </html>
