@@ -10,12 +10,15 @@ define (['request_fetch'],function (rfetch) {
 	 */
 	indexModel.initMakedownList = function(){
 		req_get('https://api.github.com/repos/CHNingMing/showPage2/contents/makedown',function (makedownList) {
+			var top = 0;
 			for(makedown of makedownList){
 				let li = document.createElement('li');
 				li.setAttribute('makedownContentUrl',makedown.url);
 				li.onclick = function(){
 					indexJS.goMakedown(this,this.makedownContentUrl);
 				}
+				li.style.top = top+'px';
+				top += 100;
 				li.innerText = makedown.name;
 				nodeList.append(li);
 			}
@@ -30,10 +33,11 @@ define (['request_fetch'],function (rfetch) {
 		liDom.style.backgroundColor = '#C7EDCC';
 		liDom.style.top = 0;
 		liDom.style.width = '100%';
+		liDom.style.zIndex = 99;
 		//下拉最后
 		setTimeout(function () {
 			liDom.style.height = '768px';
-		},100)
+		},200)
 	}
 	return indexModel;
 });
