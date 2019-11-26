@@ -5,13 +5,26 @@
     <title>Title</title>
     <link rel="stylesheet" href="css/indexA.css" />
     <link rel="stylesheet" href="js/lib/layui/css/layui.css" />
+    <script src="js/lib/vue/vue.js"></script>
     <script src="js/lib/marked/marked.min.js"></script>
     <script src="js/lib/requirejs.js"></script>
     <script src="js/script/main.js"></script>
     <script>
-        require(['js/script/index'],function(indexModel){
-            indexModel.initMakedownList();
+        require(['js/data/request_fetch.js'],function () {
+            let center = new Vue({
+                el: '#center',
+                data: {
+                    nodeList: new Array()
+                }
+            });
+            req_get('https://api.github.com/repos/CHNingMing/showPage2/contents/makedown',function (makedownList) {
+                center.$data.nodeList = makedownList;
+            });
         });
+        window.onload = function(){
+
+
+        }
     </script>
 </head>
 <body>
@@ -35,9 +48,14 @@
         </div>
         <div class="layui-col-md4 centerArea" id="center">
             <ul class="ulNoStyle centerItem" id="nodeList">
-
+                <li v-for="node in nodeList" v-bind:url="node.url" v-on:click="gotoNodePage(makedown.url)" class="layui-col-md9">
+                    {{node.name}}
+                </li>
             </ul>
         </div>
     </div>
+    <footer>
+
+    </footer>
 </body>
 </html>

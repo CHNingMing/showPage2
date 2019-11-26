@@ -3,6 +3,7 @@
     border:1px solid;
     width:1024px;
     height:768px;
+    position:relative;
 }
 /*通用样式*/
 .ulNoStyle li{
@@ -33,13 +34,14 @@ footer{
     margin:0 auto;
     height:80px;
     width:80%;
-    border:1px solid;
+    border-width:1px;
     margin-left:10%;
     margin-top:20px;
-    transition:0.5s;
-    box-shadow:0px 0px 8px #C0C0C0;
+    transition:.4s;
+    border:1px solid #C9C9C9;
     cursor:pointer;
+    position:absolute;
 }
 .centerItem li:hover{
-    box-shadow:0px 0px 0px;
+    box-shadow:0px 0px 8px #C0C0C0;
 }

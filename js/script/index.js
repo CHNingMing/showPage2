@@ -1,10 +1,41 @@
-define(function(){
-	var user = {};
-	user.name = 'ZhangSan';
-	user.age = 20;
-	user.address = '地址';
-	user.showThis = ()=>{
-		console.info(user.address);
+/*
+* 主页JS
+* */
+var indexJS = new Object();
+define (['request_fetch'],function (rfetch) {
+	let nodeList = document.getElementById('nodeList');
+	let indexModel = new Object();
+	/**
+	 * 加载文章列表
+	 */
+	indexModel.initMakedownList = function(){
+		req_get('https://api.github.com/repos/CHNingMing/showPage2/contents/makedown',function (makedownList) {
+			for(makedown of makedownList){
+				let li = document.createElement('li');
+				li.setAttribute('makedownContentUrl',makedown.url);
+				li.onclick = function(){
+					indexJS.goMakedown(this,this.makedownContentUrl);
+				}
+				li.innerText = makedown.name;
+				nodeList.append(li);
+			}
+		});
 	}
-	return user;
-})
+	/**
+	 * 打开文章页
+	 */
+	indexJS.goMakedown = function (liDom, makedownUrl) {
+		liDom.style.marginLeft = 0;
+		liDom.style.marginTop = 0;
+		liDom.style.backgroundColor = '#C7EDCC';
+		liDom.style.top = 0;
+		liDom.style.width = '100%';
+		//下拉最后
+		setTimeout(function () {
+			liDom.style.height = '768px';
+		},100)
+	}
+	return indexModel;
+});
+
+
