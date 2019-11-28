@@ -1,14 +1,39 @@
 /*
 * 主页JS
 * */
+let makedownListUrl = 'https://api.github.com/repos/CHNingMing/LinuxNode/contents/';
+
 define (['request_fetch'],function (rfetch) {
-	let nodeList = document.getElementById('nodeList');
 	let indexModel = new Object();
+
+
+	/**
+	 * 加载文章分类
+	 */
+	indexModel.initMakedownCategory = function(){
+		req_get(makedownListUrl,function (makedownCategorys) {
+			var categoryUl = document.getElementById('categoryUl');
+			for( category of makedownCategorys ){
+				if( category.type == 'dir' ){
+					let li = document.createElement('li');
+					li.innerText = li.name = category.name;
+					li.onclick = function(){
+						publicObj.initMakedownList(makedownListUrl+this.name);
+					}
+					categoryUl.append(li);
+				}
+			}
+		});
+	}
+
+
 	/**
 	 * 加载文章列表
 	 */
-	indexModel.initMakedownList = function(){
-		req_get('https://api.github.com/repos/CHNingMing/showPage2/contents/makedown',function (makedownList) {
+	publicObj.initMakedownList = function(listUrl){
+		let nodeList = document.getElementById('nodeList');
+		req_get(listUrl,function (makedownList) {
+			nodeList.innerHTML = '';
 			let top = 10;
 			for(makedown of makedownList){
 				let li = document.createElement('li');
@@ -40,20 +65,28 @@ define (['request_fetch'],function (rfetch) {
 			makedownDiv.innerHTML = '<hr />'+marked(makeStr);
 			makedownDiv.style.textAlign = 'left';
 			liDom.append(makedownDiv);
-			//开始设置后退按钮,加载好文档后添加后退按钮
-			let backI = document.createElement('i');
-			backI.id = 'backIcon';
-			backI.innerText = '←';
-			backI.onclick = function(){
-				publicObj.backMakedown(this.parentElement);
-			}
-			//后退按钮样式
-			backI.style.position = 'absolute';
-			backI.style.top = 0;
-			backI.style.left = 0;
-			liDom.append(backI);
+			liDom.append(appendBack());
 		});
+	}
 
+	/**
+	 * 添加后退按钮
+	 */
+	function appendBack(){
+		//开始设置后退按钮,加载好文档后添加后退按钮
+		let backI = document.createElement('i');
+		backI.id = 'backIcon';
+		backI.classList.add('layui-icon');
+		backI.classList.add('layui-icon-return');
+		backI.style.cursor = 'pointer';
+		backI.onclick = function(){
+			publicObj.backMakedown(this.parentElement);
+		}
+		//后退按钮样式
+		backI.style.position = 'absolute';
+		backI.style.top = 0;
+		backI.style.left = 0;
+		return backI;
 	}
 
 	/**
@@ -67,7 +100,7 @@ define (['request_fetch'],function (rfetch) {
 		liDom.style.top = 0;
 		liDom.style.left = 0;
 		liDom.style.marginTop = 0;
-		liDom.style.backgroundColor = '#C7EDCC';
+		liDom.style.backgroundColor = 'rgb(255, 255, 255)';
 		liDom.style.width = '100%';
 		liDom.style.zIndex = 99;
 		liDom.style.cursor = 'default';
@@ -97,6 +130,7 @@ define (['request_fetch'],function (rfetch) {
 				publicObj.goMakedown(this,this.makedownContentUrl);
 			}
 		},200);
+		liDom.style.removeProperty('left');
 		liDom.querySelector('#backIcon').remove();
 		liDom.querySelector('#makedownDiv').remove();
 	}

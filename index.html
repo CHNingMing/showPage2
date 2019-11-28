@@ -15,7 +15,7 @@
 
 
         require(['js/script/index'],function(indexModel){
-            indexModel.initMakedownList();
+            indexModel.initMakedownCategory();
         });
     </script>
 </head>
@@ -26,7 +26,9 @@
     <div class="main">
         <div class="layui-col-md2 leftArea">
             <div class="layui-col-md12">
-                文章分类
+                <ul class="ulNoStyle" id="categoryUl">
+
+                </ul>
             </div>
             <div class="layui-col-md12">
                 最新评论
