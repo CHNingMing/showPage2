@@ -5,10 +5,15 @@
     <title>Title</title>
     <link rel="stylesheet" href="css/indexA.css" />
     <link rel="stylesheet" href="js/lib/layui/css/layui.css" />
+    <link rel="stylesheet" href="js/lib/starpdown/css/united.min.css" />
     <script src="js/lib/marked/marked.min.js"></script>
     <script src="js/lib/requirejs.js"></script>
     <script src="js/script/main.js"></script>
     <script>
+        //公共绑定事件对象
+        var publicObj = new Object();
+
+
         require(['js/script/index'],function(indexModel){
             indexModel.initMakedownList();
         });
@@ -22,9 +27,6 @@
         <div class="layui-col-md2 leftArea">
             <div class="layui-col-md12">
                 文章分类
-            </div>
-            <div class="layui-col-md12">
-                展示标签
             </div>
             <div class="layui-col-md12">
                 最新评论

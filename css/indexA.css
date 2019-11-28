@@ -30,18 +30,30 @@ footer{
     width:83% !important;
     height:100%;
 }
+.centerItem{
+    height:auto;
+}
 .centerItem li{
     margin:0 auto;
     height:80px;
     width:80%;
     border-width:1px;
     margin-left:10%;
-    margin-top:20px;
-    transition:.4s;
+    transition:.3s;
     border:1px solid #C9C9C9;
     cursor:pointer;
     position:absolute;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 10px;
+    overflow:hidden;
 }
-.centerItem li:hover{
+.centerItemHover:hover{
     box-shadow:0px 0px 8px #C0C0C0;
 }
+.backIcon{
+    border:1px solid;
+}
+
+
+
